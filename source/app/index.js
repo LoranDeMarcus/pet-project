@@ -1,2 +1,2 @@
-import '@components/style.scss';
-import '../logo.svg';
+import '../components/base.scss'
+import '../components/TodoApp';

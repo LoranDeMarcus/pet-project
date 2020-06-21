@@ -2,14 +2,51 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Webpack</title>
+    <title>Vanilla ES6 • TodoMVC</title>
     <meta name="description">
     <meta name="author" content="SitePoint">
 </head>
 <body>
-    <div class="container">
-        <h1>Webpack</h1>
+    <div class="todo-app">
+        <h1 class="todo-app__title">
+            todos
+        </h1>
+        <div class="todo-app__input-wrapper">
+            <label class="todo-app__input-label">
+                <input type="checkbox" class="todo-app__input-checkbox">
+                <label class="todo-app__input-checkbox-label"></label>
+                <input class="todo-app__input" placeholder="What needs to be done?" autofocus>
+            </label>
+            <div class="todo-app__list-wrapper">
+                <ul class="todo-app__list">
+                    <li class="todo-app__list-item">
+                        <input type="checkbox" class="todo-app__list-checkbox">
+                        <label class="todo-app__list-checkbox-label">
+                            123
+                        </label>
+                        <button class="todo-app__item-destroy"></button>
+                    </li>
+                    <li class="todo-app__list-item">
+                        <input type="checkbox" class="todo-app__list-checkbox">
+                        <label class="todo-app__list-checkbox-label">
+                            sdf23r
+                        </label>
+                        <button class="todo-app__item-destroy"></button>
+                    </li>
+                </ul>
+            </div>
+            <div class="todo-app__footer">
+                <span class="todo-app__todo-count">2 items left</span>
+                <ul class="todo-app__filters-list">
+                    <li class="todo-app__filters-item">All</li>
+                    <li class="todo-app__filters-item">Active</li>
+                    <li class="todo-app__filters-item todo-app__filters-item">Complete</li>
+                </ul>
+                <button class="todo-app__clear-completed">
+                    Clear completed
+                </button>
+            </div>
+        </div>
     </div>
-    <div class="logo"></div>
 </body>
 </html>
