@@ -1,5 +1,8 @@
-import ItemTemplate from './itemTemplate';
+import ItemTemplate from './item-template';
 import { GenerateNum } from '../GenerateNum';
+
+const footer = document.querySelector('.todo-app__footer');
+const footer_active = 'todo-app__footer_active';
 
 const itemTemplate = new ItemTemplate();
 const getNewUserID = new GenerateNum();
@@ -30,6 +33,7 @@ export default class TodoApp {
         this.insertTodoText();
         this.clearInput();
         this.insertTodoCount();
+        this.showFooter();
     }
     
     insertTodoText() {
@@ -40,4 +44,9 @@ export default class TodoApp {
         console.log(this.todoListArray);
         this.todoCount.innerHTML = this.todoListArray.length;
     }
+    
+    showFooter() {
+        this.todoListArray >= 1 ? footer.classList.add(footer_active) : footer.classList.remove(footer_active);
+    }
+    
 }
