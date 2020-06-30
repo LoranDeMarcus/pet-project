@@ -1,13 +1,17 @@
 export default class ItemTemplate {
-    listItem(item) {
-        return `<li data-it=${item.id} class="todo-app__list-item">
-                    <input type="checkbox" class="todo-app__list-checkbox">
-                    <label class="todo-app__list-checkbox-label">
-                        ${item.title}
-                    </label>
-                    <button class="todo-app__item-destroy"></button>
-                </li>`
+    listItem(items) {
+        let html = [];
+        items.map((item) => {
+            html.push(`<li data-id="${item.id}" class="todo-app__list-item">
+                <input type="checkbox" class="todo-app__list-checkbox">
+                <label class="todo-app__list-checkbox-label">
+                    ${item.title}
+                </label>
+                <button class="todo-app__item-destroy"></button>
+            </li>`);
+        });
         
+        return html.join("\r\n");
     }
 }
 
