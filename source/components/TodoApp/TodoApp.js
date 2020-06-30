@@ -9,6 +9,7 @@ export default class TodoApp {
         this.todoListArray = [];
         this.newId = getNewUserID.generateByDate();
         this.todoList = document.querySelector('.todo-app__list');
+        this.todoCount = document.querySelector('.todo-app__todo-count');
     }
     
     getNewId() {
@@ -28,10 +29,15 @@ export default class TodoApp {
         
         this.insertTodoText();
         this.clearInput();
-        console.log(this.todoListArray);
+        this.insertTodoCount();
     }
     
     insertTodoText() {
         this.todoList.innerHTML = itemTemplate.listItem(this.todoListArray);
+    }
+    
+    insertTodoCount() {
+        console.log(this.todoListArray);
+        this.todoCount.innerHTML = this.todoListArray.length;
     }
 }
