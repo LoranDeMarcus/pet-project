@@ -15,10 +15,8 @@ export default class ItemTemplate {
     }
 }
 
-// TODO: item - объект с ключ: значение
-
 /* TODO: 1. Хранилище/данные/представление
-         2. А когда нет доступа к серверу чтобы автоматом лез в локалсторедж
+         2. Когда нет доступа к серверу чтобы автоматом лез в локалсторедж
          3. Progressive web application
          4. Dictionary JS - localStorage сериализация
  */

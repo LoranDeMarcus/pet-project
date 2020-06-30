@@ -32,8 +32,8 @@ export default class TodoApp {
         
         this.insertTodoText();
         this.clearInput();
-        this.insertTodoCount();
         this.showFooter();
+        this.updateCount();
     }
     
     insertTodoText() {
@@ -41,12 +41,17 @@ export default class TodoApp {
     }
     
     insertTodoCount() {
-        console.log(this.todoListArray);
-        this.todoCount.innerHTML = this.todoListArray.length;
+        this.todoCount.innerHTML = this.todoListArray.map(item => {
+            return item.completed.false;
+        }).length;
+        // TODO: написать метод, который будет менять статус 'completed' при нажатии на чекбокс
     }
     
     showFooter() {
-        this.todoListArray >= 1 ? footer.classList.add(footer_active) : footer.classList.remove(footer_active);
+        this.todoListArray.length >= 1 ? footer.classList.add(footer_active) : footer.classList.remove(footer_active);
     }
     
+    updateCount() {
+        this.insertTodoCount();
+    }
 }
