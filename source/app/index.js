@@ -1,27 +1,51 @@
 import '../components/base.scss'
 import '../components/TodoApp';
 
-import ItemTemplate from "@components/TodoApp/itemTemplate";
-import { GenerateNum } from "@components/GenerateNum";
+import ItemTemplate from '@components/TodoApp/itemTemplate';
+import { GenerateNum } from '@components/GenerateNum';
 
-const todoList = [];
 const itemTemplate = new ItemTemplate();
 const getNewUserID = new GenerateNum();
-const list = document.querySelector('.todo-app__list');
 
-document.addEventListener('keyup', function(e) {
-    if (e.keyCode === 13) {
-        const newId = getNewUserID.generateByDate();
-        const text = document.querySelector('.todo-app__input').value.trim();
+class TodoApp {
+    constructor() {
+        this.todoListArray = [];
+        this.newId = getNewUserID.generateByDate();
+        this.todoList = document.querySelector('.todo-app__list');
+    }
+    
+    getNewId() {
+        return this.newId;
+    }
+    
+    clearInput() {
         document.querySelector('.todo-app__input').value = '';
-        
-        todoList.push({
-            id: newId,
+    }
+    
+    addToArray(text) {
+        this.todoListArray.push({
+            id: this.getNewId(),
             title: text,
             completed: false
         });
         
-        list.innerHTML = itemTemplate.listItem(todoList);
-        
+        this.insertTodoText();
+        this.clearInput();
+        console.log(this.todoListArray);
     }
+    
+    insertTodoText() {
+        this.todoList.innerHTML = itemTemplate.listItem(this.todoListArray);
+    }
+}
+
+const todoApp = new TodoApp();
+
+document.addEventListener('keyup', function(e) {
+    if (e.key === 'Enter') {
+        const todoText = document.querySelector('.todo-app__input').value.trim();
+        //console.log(todoText)
+        return !todoText.length ? false : todoApp.addToArray(todoText);
+    }
+    
 });
