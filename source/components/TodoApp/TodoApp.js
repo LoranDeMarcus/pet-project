@@ -54,4 +54,3 @@ export default class TodoApp {
         this.insertTodoCount();
     }
 }
-setTimeout(console.log('123'), 1000)
