@@ -5,18 +5,17 @@ const footer = document.querySelector('.todo-app__footer');
 const footer_active = 'todo-app__footer_active';
 
 const itemTemplate = new ItemTemplate();
-const getNewUserID = new GenerateNum();
+let getNewUserID = new GenerateNum();
 
 export default class TodoApp {
     constructor() {
         this.todoListArray = [];
-        this.newId = getNewUserID.generateByDate();
         this.todoList = document.querySelector('.todo-app__list');
         this.todoCount = document.querySelector('.todo-app__todo-count');
     }
     
     getNewId() {
-        return this.newId;
+        return getNewUserID.generateNumByDate();
     }
     
     clearInput() {
@@ -55,3 +54,4 @@ export default class TodoApp {
         this.insertTodoCount();
     }
 }
+setTimeout(console.log('123'), 1000)
