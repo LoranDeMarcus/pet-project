@@ -10,13 +10,13 @@ const getNewUserID = new GenerateNum();
 export default class TodoApp {
     constructor() {
         this.todoListArray = [];
-        this.newId = getNewUserID.generateByDate();
         this.todoList = document.querySelector('.todo-app__list');
+        this.todoListItem = document.querySelector('.todo-app__list-item');
         this.todoCount = document.querySelector('.todo-app__todo-count');
     }
     
     getNewId() {
-        return this.newId;
+        return getNewUserID.generateByDate();
     }
     
     clearInput() {
@@ -41,10 +41,13 @@ export default class TodoApp {
     }
     
     insertTodoCount() {
-        this.todoCount.innerHTML = this.todoListArray.map(item => {
+        this.todoCount.innerText = this.todoListArray.map(item => {
             return item.completed.false;
         }).length;
-        // TODO: написать метод, который будет менять статус 'completed' при нажатии на чекбокс
+    }
+    
+    updateTodoStatus() {
+        // TODO: посмотреть https://github.com/LoranDeMarcus/todo-array/blob/master/js/application.js  $('#todo-list').on('click', 'button.destroy', function() {...} куда ссылается
     }
     
     showFooter() {

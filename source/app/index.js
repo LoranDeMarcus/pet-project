@@ -10,6 +10,8 @@ document.addEventListener('keyup', function(e) {
         const todoText = document.querySelector('.todo-app__input').value.trim();
         return !todoText.length ? false : todoApp.addToArray(todoText);
     }
-    
+    todoApp.updateTodoStatus();
 });
+
+
 
