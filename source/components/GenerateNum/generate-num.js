@@ -1,5 +1,5 @@
 export default class GenerateNum {
-    generateByDate() {
-        return Date.now()
+    generateNumByDate() {
+        return Date.now();
     }
 }
