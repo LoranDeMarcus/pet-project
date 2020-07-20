@@ -3,7 +3,7 @@ import '../components/TodoApp';
 
 import { TodoApp } from '@components/TodoApp';
 
-const todoApp = new TodoApp();
+const todoApp = new TodoApp(document.querySelector('.todo-app'));
 
 document.addEventListener('keyup', function(e) {
     if (e.key === 'Enter') {
@@ -13,5 +13,8 @@ document.addEventListener('keyup', function(e) {
     todoApp.updateTodoStatus();
 });
 
-
-
+document.querySelector('.todo-app__list').addEventListener('click', function(e) {
+    const li = e.target.classList.contains('todo-app__list-item');
+    console.log(li);
+    todoApp.updateTodoStatus(li);
+});

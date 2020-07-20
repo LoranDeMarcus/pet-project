@@ -8,15 +8,14 @@ const itemTemplate = new ItemTemplate();
 const getNewUserID = new GenerateNum();
 
 export default class TodoApp {
-    constructor() {
+    constructor(elem) {
         this.todoListArray = [];
-        this.todoList = document.querySelector('.todo-app__list');
-        this.todoListItem = document.querySelector('.todo-app__list-item');
-        this.todoCount = document.querySelector('.todo-app__todo-count');
+        this.todoList = elem.querySelector('.todo-app__list');
+        this.todoCount = elem.querySelector('.todo-app__todo-count');
     }
     
     getNewId() {
-        return getNewUserID.generateByDate();
+        return getNewUserID.generateNumByDate();
     }
     
     clearInput() {
@@ -46,8 +45,19 @@ export default class TodoApp {
         }).length;
     }
     
-    updateTodoStatus() {
-        // TODO: посмотреть https://github.com/LoranDeMarcus/todo-array/blob/master/js/application.js  $('#todo-list').on('click', 'button.destroy', function() {...} куда ссылается
+    updateTodoStatus(elem) {
+        const elemId = elem === undefined ? false : +elem.dataset.id;
+        const object = this.todoListArray.find( item => { return item.id === elemId });
+        
+        if (object.completed === false) {
+            object.completed = true;
+            document.querySelector('.todo-app__list-checkbox-label').classList.add('todo-app__list-checkbox-label_completed');
+        } else {
+            object.completed = false
+            document.querySelector('.todo-app__list-checkbox-label').classList.remove('todo-app__list-checkbox-label_completed');
+        }
+        
+        
     }
     
     showFooter() {
