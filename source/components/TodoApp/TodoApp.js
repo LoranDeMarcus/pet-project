@@ -46,18 +46,16 @@ export default class TodoApp {
     }
     
     updateTodoStatus(elem) {
-        const elemId = elem === undefined ? false : +elem.dataset.id;
-        const object = this.todoListArray.find( item => { return item.id === elemId });
-        
+        const elemId = +elem.getAttribute('data-id');
+        const object = this.todoListArray.find( item => item.id === elemId );
         if (object.completed === false) {
             object.completed = true;
-            document.querySelector('.todo-app__list-checkbox-label').classList.add('todo-app__list-checkbox-label_completed');
+            elem.querySelector('.todo-app__list-checkbox-label').classList.add('todo-app__list-checkbox-label_completed'); // FIXME: querySelector берет первый элемент списка
         } else {
             object.completed = false
-            document.querySelector('.todo-app__list-checkbox-label').classList.remove('todo-app__list-checkbox-label_completed');
+            elem.querySelector('.todo-app__list-checkbox-label').classList.remove('todo-app__list-checkbox-label_completed');
         }
-        
-        
+        console.log(this.todoListArray);
     }
     
     showFooter() {

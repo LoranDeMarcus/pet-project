@@ -13,8 +13,8 @@ document.addEventListener('keyup', function(e) {
     todoApp.updateTodoStatus();
 });
 
-document.querySelector('.todo-app__list').addEventListener('click', function(e) {
-    const li = e.target.classList.contains('todo-app__list-item');
-    console.log(li);
-    todoApp.updateTodoStatus(li);
+document.querySelector('.todo-app__list').addEventListener('change', function(e) {
+    const listItem = e.target.parentNode;
+    console.log(listItem);
+    todoApp.updateTodoStatus(listItem);
 });
