@@ -3,6 +3,8 @@ import '../components/TodoApp';
 
 import { TodoApp } from '@components/TodoApp';
 
+const todoList = document.querySelector('.todo-app__list');
+
 const todoApp = new TodoApp(document.querySelector('.todo-app'));
 
 document.addEventListener('keyup', function(e) {
@@ -13,8 +15,12 @@ document.addEventListener('keyup', function(e) {
     todoApp.updateTodoStatus();
 });
 
-document.querySelector('.todo-app__list').addEventListener('change', function(e) {
+todoList.addEventListener('change', (e) => {
     const listItem = e.target.parentNode;
-    console.log(listItem);
     todoApp.updateTodoStatus(listItem);
+});
+
+todoList.addEventListener('click', (e) => {
+    const buttonDestroy = e.target.querySelector('.todo-app__item-destroy');
+    console.log(buttonDestroy);
 });

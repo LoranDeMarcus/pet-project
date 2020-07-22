@@ -32,7 +32,7 @@ export default class TodoApp {
         this.insertTodoText();
         this.clearInput();
         this.showFooter();
-        this.updateCount();
+        this.updateTodoCount();
     }
     
     insertTodoText() {
@@ -50,19 +50,18 @@ export default class TodoApp {
         const object = this.todoListArray.find( item => item.id === elemId );
         if (object.completed === false) {
             object.completed = true;
-            elem.querySelector('.todo-app__list-checkbox-label').classList.add('todo-app__list-checkbox-label_completed'); // FIXME: querySelector берет первый элемент списка
+            elem.querySelector('.todo-app__list-checkbox-label').classList.add('todo-app__list-checkbox-label_completed');
         } else {
             object.completed = false
             elem.querySelector('.todo-app__list-checkbox-label').classList.remove('todo-app__list-checkbox-label_completed');
         }
-        console.log(this.todoListArray);
     }
     
     showFooter() {
         this.todoListArray.length >= 1 ? footer.classList.add(footer_active) : footer.classList.remove(footer_active);
     }
     
-    updateCount() {
+    updateTodoCount() {
         this.insertTodoCount();
     }
 }
