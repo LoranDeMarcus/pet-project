@@ -49,13 +49,7 @@ export default class TodoApp {
         } else {
             const elemId = +elem.getAttribute('data-id');
             const object = this.todoListArray.find( item => item.id === elemId );
-            if (object.completed === false) {
-                object.completed = true;
-                elem.querySelector('.todo-app__list-checkbox-label').classList.add('todo-app__list-checkbox-label_completed');
-            } else {
-                object.completed = false
-                elem.querySelector('.todo-app__list-checkbox-label').classList.remove('todo-app__list-checkbox-label_completed');
-            }
+            object.completed === false ? object.completed = true : object.completed = false;
         }
         this.updateTodoList();
     }
