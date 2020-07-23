@@ -3,7 +3,7 @@ export default class ItemTemplate {
         let html = [];
         items.map((item) => {
             html.push(`<li data-id="${item.id}" class="todo-app__list-item">
-                <input type="checkbox" ${item.completed === true ? 'checked' : ''} class="todo-app__list-checkbox"> <!-- FIXME: в чекбоксе вствавить статус checked/unchecked -->
+                <input type="checkbox" ${item.completed === true ? 'checked' : ''} class="todo-app__list-checkbox">
                 <label class="todo-app__list-checkbox-label">
                     ${item.title}
                 </label>
