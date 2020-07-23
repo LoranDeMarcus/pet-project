@@ -8,10 +8,10 @@ const itemTemplate = new ItemTemplate();
 const getNewUserID = new GenerateNum();
 
 export default class TodoApp {
-    constructor(elem) {
+    constructor($elem) {
         this.todoListArray = [];
-        this.todoList = elem.querySelector('.todo-app__list');
-        this.todoCount = elem.querySelector('.todo-app__todo-count');
+        this.todoList = $elem.querySelector('.todo-app__list');
+        this.todoCount = $elem.querySelector('.todo-app__todo-count');
     }
     
     getNewId() {
@@ -43,19 +43,19 @@ export default class TodoApp {
         this.todoCount.innerText = this.todoListArray.filter(item => item.completed === false).length;
     }
     
-    updateTodoStatus(elem) {
-        if (elem === undefined) {
+    updateTodoStatus($elem) {
+        if ($elem === undefined) {
             return false
         } else {
-            const elemId = +elem.getAttribute('data-id');
+            const elemId = +$elem.getAttribute('data-id');
             const object = this.todoListArray.find( item => item.id === elemId );
             object.completed === false ? object.completed = true : object.completed = false;
         }
         this.updateTodoList();
     }
     
-    deleteTodoItem(elem) {
-        const elemId = +elem.getAttribute('data-id');
+    deleteTodoItem($elem) {
+        const elemId = +$elem.getAttribute('data-id');
         const index = this.todoListArray.findIndex( item => item.id === elemId );
         this.todoListArray.splice(index, 1);
         this.updateTodoList();

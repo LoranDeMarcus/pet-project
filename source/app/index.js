@@ -3,7 +3,7 @@ import '../components/TodoApp';
 
 import { TodoApp } from '@components/TodoApp';
 
-const todoList = document.querySelector('.todo-app__list');
+const $todoList = document.querySelector('.todo-app__list');
 
 const todoApp = new TodoApp(document.querySelector('.todo-app'));
 
@@ -14,16 +14,16 @@ document.addEventListener('keyup', function(e) {
     }
 });
 
-todoList.addEventListener('change', (e) => {
-    const listItem = e.target.parentNode;
+$todoList.addEventListener('change', (e) => {
+    const $listItem = e.target.parentNode;
     if (e.target.classList.contains('todo-app__list-checkbox')) {
-        todoApp.updateTodoStatus(listItem);
+        todoApp.updateTodoStatus($listItem);
     }
 });
 
-todoList.addEventListener('click', (e) => {
-    const listItem = e.target.parentNode;
+$todoList.addEventListener('click', (e) => {
+    const $listItem = e.target.parentNode;
     if (e.target.classList.contains('todo-app__item-destroy')) {
-        todoApp.deleteTodoItem(listItem);
+        todoApp.deleteTodoItem($listItem);
     }
 });
