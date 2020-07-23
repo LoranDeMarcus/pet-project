@@ -10,8 +10,9 @@ const getNewUserID = new GenerateNum();
 export default class TodoApp {
     constructor($elem) {
         this.todoListArray = [];
-        this.todoList = $elem.querySelector('.todo-app__list');
-        this.todoCount = $elem.querySelector('.todo-app__todo-count');
+        this.$todoList = $elem.querySelector('.todo-app__list');
+        this.$todoCount = $elem.querySelector('.todo-app__todo-count');
+        this.$clearCompletedButton = $elem.querySelector('.todo-app__clear-completed');
     }
     
     getNewId() {
@@ -33,14 +34,15 @@ export default class TodoApp {
     }
     
     updateTodoList() {
-        this.todoList.innerHTML = itemTemplate.listItem(this.todoListArray);
+        this.$todoList.innerHTML = itemTemplate.listItem(this.todoListArray);
         this.showFooter();
         this.clearInput();
         this.updateTodoCount();
+        this.toggleClearCompletedButton();
     }
     
     updateTodoCount() {
-        this.todoCount.innerText = this.todoListArray.filter(item => item.completed === false).length;
+        this.$todoCount.innerText = this.todoListArray.filter(item => item.completed === false).length;
     }
     
     updateTodoStatus($elem) {
@@ -48,8 +50,10 @@ export default class TodoApp {
             return false
         } else {
             const elemId = +$elem.getAttribute('data-id');
-            const object = this.todoListArray.find( item => item.id === elemId );
-            object.completed === false ? object.completed = true : object.completed = false;
+            const object = this.todoListArray.find(item => item.id === elemId);
+            object.completed === false ?
+                object.completed = true :
+                object.completed = false;
         }
         this.updateTodoList();
     }
@@ -62,6 +66,21 @@ export default class TodoApp {
     }
     
     showFooter() {
-        this.todoListArray.length > 0 ? footer.classList.add(footer_active) : footer.classList.remove(footer_active);
+        this.todoListArray.length >= 1 ?
+            footer.classList.add(footer_active) :
+            footer.classList.remove(footer_active);
+    }
+    
+    toggleClearCompletedButton() {
+        this.todoListArray.filter(item => item.completed === true).length >= 1 ?
+            this.$clearCompletedButton.style.display = 'block' :
+            this.$clearCompletedButton.style.display = 'none'
+    }
+    
+    clearCompleted() {
+        this.todoListArray.reduce(item => {
+            console.log(item.completed === true ? item.splice(1, 1) : false); // TODO: try to use forEach method
+            return item.completed === true ? item.splice(1, 1) : false;
+        });
     }
 }

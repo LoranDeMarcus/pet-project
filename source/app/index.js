@@ -4,6 +4,7 @@ import '../components/TodoApp';
 import { TodoApp } from '@components/TodoApp';
 
 const $todoList = document.querySelector('.todo-app__list');
+const $clearCompletedButton = document.querySelector('.todo-app__clear-completed');
 
 const todoApp = new TodoApp(document.querySelector('.todo-app'));
 
@@ -27,3 +28,7 @@ $todoList.addEventListener('click', (e) => {
         todoApp.deleteTodoItem($listItem);
     }
 });
+
+$clearCompletedButton.addEventListener('click', () => {
+    todoApp.clearCompleted();
+})
