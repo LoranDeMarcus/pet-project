@@ -37,13 +37,10 @@ export default class TodoApp {
         this.showFooter();
         this.clearInput();
         this.updateTodoCount();
-        console.log(this.todoListArray);
     }
     
     updateTodoCount() {
-        this.todoCount.innerText = this.todoListArray.map(item => {
-            return item.completed.false;
-        }).length;
+        this.todoCount.innerText = this.todoListArray.filter(item => item.completed === false).length;
     }
     
     updateTodoStatus(elem) {

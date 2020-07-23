@@ -17,7 +17,6 @@ document.addEventListener('keyup', function(e) {
 todoList.addEventListener('change', (e) => {
     const listItem = e.target.parentNode;
     if (e.target.classList.contains('todo-app__list-checkbox')) {
-        console.log(listItem);
         todoApp.updateTodoStatus(listItem);
     }
 });
