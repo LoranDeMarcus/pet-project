@@ -29,39 +29,48 @@ export default class TodoApp {
             completed: false
         });
         
-        this.insertTodoText();
-        this.clearInput();
-        this.showFooter();
-        this.updateTodoCount();
+        this.updateTodoList();
     }
     
-    insertTodoText() {
+    updateTodoList() {
         this.todoList.innerHTML = itemTemplate.listItem(this.todoListArray);
+        this.showFooter();
+        this.clearInput();
+        this.updateTodoCount();
+        console.log(this.todoListArray);
     }
     
-    insertTodoCount() {
+    updateTodoCount() {
         this.todoCount.innerText = this.todoListArray.map(item => {
             return item.completed.false;
         }).length;
     }
     
     updateTodoStatus(elem) {
-        const elemId = +elem.getAttribute('data-id');
-        const object = this.todoListArray.find( item => item.id === elemId );
-        if (object.completed === false) {
-            object.completed = true;
-            elem.querySelector('.todo-app__list-checkbox-label').classList.add('todo-app__list-checkbox-label_completed');
+        if (elem === undefined) {
+            return false
         } else {
-            object.completed = false
-            elem.querySelector('.todo-app__list-checkbox-label').classList.remove('todo-app__list-checkbox-label_completed');
+            const elemId = +elem.getAttribute('data-id');
+            const object = this.todoListArray.find( item => item.id === elemId );
+            if (object.completed === false) {
+                object.completed = true;
+                elem.querySelector('.todo-app__list-checkbox-label').classList.add('todo-app__list-checkbox-label_completed');
+            } else {
+                object.completed = false
+                elem.querySelector('.todo-app__list-checkbox-label').classList.remove('todo-app__list-checkbox-label_completed');
+            }
         }
+        this.updateTodoList();
+    }
+    
+    deleteTodoItem(elem) {
+        const elemId = +elem.getAttribute('data-id');
+        const index = this.todoListArray.findIndex( item => item.id === elemId );
+        this.todoListArray.splice(index, 1);
+        this.updateTodoList();
     }
     
     showFooter() {
-        this.todoListArray.length >= 1 ? footer.classList.add(footer_active) : footer.classList.remove(footer_active);
-    }
-    
-    updateTodoCount() {
-        this.insertTodoCount();
+        this.todoListArray.length > 0 ? footer.classList.add(footer_active) : footer.classList.remove(footer_active);
     }
 }

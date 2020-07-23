@@ -12,15 +12,19 @@ document.addEventListener('keyup', function(e) {
         const todoText = document.querySelector('.todo-app__input').value.trim();
         return !todoText.length ? false : todoApp.addToArray(todoText);
     }
-    todoApp.updateTodoStatus();
 });
 
 todoList.addEventListener('change', (e) => {
     const listItem = e.target.parentNode;
-    todoApp.updateTodoStatus(listItem);
+    if (e.target.classList.contains('todo-app__list-checkbox')) {
+        console.log(listItem);
+        todoApp.updateTodoStatus(listItem);
+    }
 });
 
 todoList.addEventListener('click', (e) => {
-    const buttonDestroy = e.target.querySelector('.todo-app__item-destroy');
-    console.log(buttonDestroy);
+    const listItem = e.target.parentNode;
+    if (e.target.classList.contains('todo-app__item-destroy')) {
+        todoApp.deleteTodoItem(listItem);
+    }
 });
