@@ -30,5 +30,6 @@ $todoList.addEventListener('click', (e) => {
 });
 
 $clearCompletedButton.addEventListener('click', () => {
+    console.log(todoApp.clearCompleted());
     todoApp.clearCompleted();
 })

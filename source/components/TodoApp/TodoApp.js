@@ -39,6 +39,7 @@ export default class TodoApp {
         this.clearInput();
         this.updateTodoCount();
         this.toggleClearCompletedButton();
+        console.log(this.todoListArray);
     }
     
     updateTodoCount() {
@@ -78,9 +79,7 @@ export default class TodoApp {
     }
     
     clearCompleted() {
-        this.todoListArray.reduce(item => {
-            console.log(item.completed === true ? item.splice(1, 1) : false); // TODO: try to use forEach method
-            return item.completed === true ? item.splice(1, 1) : false;
-        });
+        this.todoListArray = this.todoListArray.filter(item => item.completed !== true);
+        this.updateTodoList();
     }
 }
