@@ -31,11 +31,15 @@ export default class TodoApp {
             completed: false
         });
         
+        this.renderItems();
+    }
+    
+    renderItems() {
+        this.$todoList.innerHTML = itemTemplate.listItem(this.todoListArray);
         this.updateTodoList();
     }
 
     updateTodoList() {
-        this.$todoList.innerHTML = itemTemplate.listItem(this.todoListArray);
         this.showFooter();
         this.clearInput();
         this.itemCounter();
@@ -47,7 +51,7 @@ export default class TodoApp {
         const elemId = +$elem.getAttribute('data-id');
         const index = this.todoListArray.findIndex( item => item.id === elemId );
         this.todoListArray.splice(index, 1);
-        this.updateTodoList();
+        this.renderItems();
     }
 
     updateTodoStatus($elem) {
@@ -60,13 +64,18 @@ export default class TodoApp {
                 object.completed = true :
                 object.completed = false;
         }
-        this.updateTodoList();
+        this.renderItems();
     }
 
     showFooter() {
         this.todoListArray.length >= 1 ?
             footer.classList.add(footer_active) :
             footer.classList.remove(footer_active);
+    }
+    
+    toggleAllItems() {
+        this.todoListArray.map(item => { return item.completed = true });
+        this.renderItems(); /* TODO: сделать чтобы при нажатии item.completed = false */
     }
 
     toggleClearCompletedButton() {
@@ -77,13 +86,23 @@ export default class TodoApp {
 
     clearCompleted() {
         this.todoListArray = this.todoListArray.filter(item => item.completed !== true);
-        this.updateTodoList();
+        this.renderItems();
+    }
+    
+    showAllItems() {
+        this.renderItems();
     }
 
     showActiveItems() {
-        this.todoListArray.forEach(item => {
-        
-        });
+        const active = this.todoListArray.filter(item => item.completed !== true);
+        this.$todoList.innerHTML = itemTemplate.listItem(active);
+        this.updateTodoList();
+    }
+    
+    showCompleteItems() {
+        const complete = this.todoListArray.filter(item => item.completed !== false);
+        this.$todoList.innerHTML = itemTemplate.listItem(complete);
+        this.updateTodoList();
     }
 
     updateTodoCount() {
