@@ -12,17 +12,18 @@ export default class TodoApp {
         this.todoListArray = [];
         this.$todoList = $elem.querySelector('.todo-app__list');
         this.$todoCount = $elem.querySelector('.todo-app__todo-count');
+        this.$todoItemsLeft = $elem.querySelector('.todo-app__todo-count');
         this.$clearCompletedButton = $elem.querySelector('.todo-app__clear-completed');
     }
-    
+
     getNewId() {
         return getNewUserID.generateNumByDate();
     }
-    
+
     clearInput() {
         document.querySelector('.todo-app__input').value = '';
     }
-    
+
     addToArray(text) {
         this.todoListArray.push({
             id: this.getNewId(),
@@ -32,20 +33,23 @@ export default class TodoApp {
         
         this.updateTodoList();
     }
-    
+
     updateTodoList() {
         this.$todoList.innerHTML = itemTemplate.listItem(this.todoListArray);
         this.showFooter();
         this.clearInput();
-        this.updateTodoCount();
+        this.itemCounter();
         this.toggleClearCompletedButton();
         console.log(this.todoListArray);
     }
-    
-    updateTodoCount() {
-        this.$todoCount.innerText = this.todoListArray.filter(item => item.completed === false).length;
+
+    deleteTodoItem($elem) {
+        const elemId = +$elem.getAttribute('data-id');
+        const index = this.todoListArray.findIndex( item => item.id === elemId );
+        this.todoListArray.splice(index, 1);
+        this.updateTodoList();
     }
-    
+
     updateTodoStatus($elem) {
         if ($elem === undefined) {
             return false
@@ -58,28 +62,35 @@ export default class TodoApp {
         }
         this.updateTodoList();
     }
-    
-    deleteTodoItem($elem) {
-        const elemId = +$elem.getAttribute('data-id');
-        const index = this.todoListArray.findIndex( item => item.id === elemId );
-        this.todoListArray.splice(index, 1);
-        this.updateTodoList();
-    }
-    
+
     showFooter() {
         this.todoListArray.length >= 1 ?
             footer.classList.add(footer_active) :
             footer.classList.remove(footer_active);
     }
-    
+
     toggleClearCompletedButton() {
         this.todoListArray.filter(item => item.completed === true).length >= 1 ?
             this.$clearCompletedButton.style.display = 'block' :
             this.$clearCompletedButton.style.display = 'none'
     }
-    
+
     clearCompleted() {
         this.todoListArray = this.todoListArray.filter(item => item.completed !== true);
         this.updateTodoList();
+    }
+
+    showActiveItems() {
+        this.todoListArray.forEach(item => {
+        
+        });
+    }
+
+    updateTodoCount() {
+        return this.todoListArray.filter(item => item.completed === false).length;
+    }
+
+    itemCounter() {
+        this.$todoItemsLeft.innerText = this.todoListArray.filter(item => item.completed === false).length > 1 ? `${this.updateTodoCount()} items left` : `${this.updateTodoCount()} item left`;
     }
 }
