@@ -26,7 +26,7 @@ document.addEventListener('keyup', function(e) {
 
 $toggleAll.addEventListener('click', () => {
     todoApp.toggleAllItems();
-})
+});
 
 $todoList.addEventListener('change', (e: Event) => {
     const $listItem = (<HTMLElement>e.target).parentNode;
