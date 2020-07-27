@@ -1,14 +1,16 @@
-import ItemTemplate from './item-template.ts';
+import ItemTemplate from './item-template';
 import { GenerateNum } from '../GenerateNum';
 
-const footer = document.querySelector('.todo-app__footer');
+const footer = document.querySelector('.todo-app__footer') as HTMLDivElement;
 const footer_active = 'todo-app__footer_active';
 
 const itemTemplate = new ItemTemplate();
 const getNewUserID = new GenerateNum();
 
 export default class TodoApp {
-    constructor($elem) {
+    private todoListArray: enum;
+
+    constructor($elem: Element) {
         this.todoListArray = [];
         this.$todoList = $elem.querySelector('.todo-app__list');
         this.$todoCount = $elem.querySelector('.todo-app__todo-count');
@@ -21,10 +23,11 @@ export default class TodoApp {
     }
 
     clearInput() {
-        document.querySelector('.todo-app__input').value = '';
+        const inputValue = document.querySelector('.todo-app__input') as HTMLInputElement;
+        inputValue.value = '';
     }
 
-    addToArray(text) {
+    addToArray(text: string) {
         this.todoListArray.push({
             id: this.getNewId(),
             title: text,
@@ -47,9 +50,9 @@ export default class TodoApp {
         console.log(this.todoListArray);
     }
 
-    deleteTodoItem($elem) {
+    deleteTodoItem($elem: any) {
         const elemId = +$elem.getAttribute('data-id');
-        const index = this.todoListArray.findIndex( item => item.id === elemId );
+        const index = this.todoListArray.findIndex( (item: { id: number; }) => item.id === elemId );
         this.todoListArray.splice(index, 1);
         this.renderItems();
     }
@@ -59,7 +62,7 @@ export default class TodoApp {
             return false
         } else {
             const elemId = +$elem.getAttribute('data-id');
-            const object = this.todoListArray.find(item => item.id === elemId);
+            const object = this.todoListArray.find((item: { id: number; }) => item.id === elemId);
             object.completed === false ?
                 object.completed = true :
                 object.completed = false;
@@ -74,18 +77,18 @@ export default class TodoApp {
     }
 
     toggleAllItems() {
-        this.todoListArray.map(item => { return item.completed = true });
+        this.todoListArray.map((item: { completed: boolean; }) => { return item.completed = true });
         this.renderItems(); /* TODO: сделать чтобы при нажатии item.completed = false */
     }
 
     toggleClearCompletedButton() {
-        this.todoListArray.filter(item => item.completed === true).length >= 1 ?
+        this.todoListArray.filter((item: { completed: boolean; }) => item.completed).length >= 1 ?
             this.$clearCompletedButton.style.display = 'block' :
             this.$clearCompletedButton.style.display = 'none'
     }
 
     clearCompleted() {
-        this.todoListArray = this.todoListArray.filter(item => item.completed !== true);
+        this.todoListArray = this.todoListArray.filter((item: { completed: boolean; }) => !item.completed);
         this.renderItems();
     }
 
@@ -94,22 +97,22 @@ export default class TodoApp {
     }
 
     showActiveItems() {
-        const active = this.todoListArray.filter(item => item.completed !== true);
+        const active = this.todoListArray.filter((item: { completed: boolean; }) => !item.completed);
         this.$todoList.innerHTML = itemTemplate.listItem(active);
         this.updateTodoList();
     }
 
     showCompleteItems() {
-        const complete = this.todoListArray.filter(item => item.completed !== false);
+        const complete = this.todoListArray.filter((item: { completed: boolean; }) => item.completed);
         this.$todoList.innerHTML = itemTemplate.listItem(complete);
         this.updateTodoList();
     }
 
     updateTodoCount() {
-        return this.todoListArray.filter(item => item.completed === false).length;
+        return this.todoListArray.filter((item: { completed: boolean; }) => !item.completed).length;
     }
 
     itemCounter() {
-        this.$todoItemsLeft.innerText = this.todoListArray.filter(item => item.completed === false).length > 1 ? `${this.updateTodoCount()} items left` : `${this.updateTodoCount()} item left`;
+        this.$todoItemsLeft.innerText = this.todoListArray.filter((item: { completed: boolean; }) => !item.completed).length > 1 ? `${this.updateTodoCount()} items left` : `${this.updateTodoCount()} item left`;
     }
 }
