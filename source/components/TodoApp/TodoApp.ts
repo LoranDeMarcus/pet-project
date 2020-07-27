@@ -1,4 +1,4 @@
-import ItemTemplate from './item-template';
+import ItemTemplate from './item-template.ts';
 import { GenerateNum } from '../GenerateNum';
 
 const footer = document.querySelector('.todo-app__footer');
@@ -30,10 +30,10 @@ export default class TodoApp {
             title: text,
             completed: false
         });
-        
+
         this.renderItems();
     }
-    
+
     renderItems() {
         this.$todoList.innerHTML = itemTemplate.listItem(this.todoListArray);
         this.updateTodoList();
@@ -72,7 +72,7 @@ export default class TodoApp {
             footer.classList.add(footer_active) :
             footer.classList.remove(footer_active);
     }
-    
+
     toggleAllItems() {
         this.todoListArray.map(item => { return item.completed = true });
         this.renderItems(); /* TODO: сделать чтобы при нажатии item.completed = false */
@@ -88,7 +88,7 @@ export default class TodoApp {
         this.todoListArray = this.todoListArray.filter(item => item.completed !== true);
         this.renderItems();
     }
-    
+
     showAllItems() {
         this.renderItems();
     }
@@ -98,7 +98,7 @@ export default class TodoApp {
         this.$todoList.innerHTML = itemTemplate.listItem(active);
         this.updateTodoList();
     }
-    
+
     showCompleteItems() {
         const complete = this.todoListArray.filter(item => item.completed !== false);
         this.$todoList.innerHTML = itemTemplate.listItem(complete);

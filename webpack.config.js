@@ -1,11 +1,17 @@
 const path = require('path');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+// @ts-ignore
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+// @ts-ignore
 const OptimizedCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin');
+// @ts-ignore
 const Autoprefixer = require ('autoprefixer');
+// @ts-ignore
 const TerserWebpackPlugin = require('terser-webpack-plugin');
+// @ts-ignore
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+// @ts-ignore
 
 const isDev = process.env.NODE_ENV === 'development';
 const isProd = !isDev;
@@ -18,6 +24,7 @@ const optimization = () => {
     }
     
     if (isProd) {
+// @ts-ignore
         config.minimizer = [
             new OptimizedCssAssetsWebpackPlugin(),
             new TerserWebpackPlugin()
@@ -51,7 +58,7 @@ const plugins = () => {
 module.exports = {
     context: path.resolve(__dirname, 'source'),
     mode: 'development',
-    entry: ['@babel/polyfill', './app/index.js'],
+    entry: ['./app/index.ts'],
     output: {
         filename: 'bundle.js',
         path: path.resolve(__dirname, 'dist')
@@ -106,19 +113,9 @@ module.exports = {
                 use: ['file-loader']
             },
             {
-                test: /\.js$/,
+                test: /\.tsx?$/,
+                use: [ 'ts-loader', 'eslint-loader' ],
                 exclude: /node_modules/,
-                loader: {
-                    loader: 'babel-loader',
-                    options: {
-                        presets: [
-                            '@babel/preset-env'
-                        ],
-                        plugins: [
-                            '@babel/plugin-proposal-class-properties'
-                        ]
-                    }
-                }
             }
         ]
     }

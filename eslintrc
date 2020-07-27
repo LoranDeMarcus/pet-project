@@ -1,0 +1,36 @@
+{
+    "parser": "@typescript-eslint/parser",
+    "plugins": ["@typescript-eslint"],
+    "extends": [
+        "airbnb-typescript/base"
+    ],
+    "parserOptions": {
+        "sourceType": "module",
+        "project": "./tsconfig.json"
+    },
+    "rules": {
+        "@typescript-eslint/class-methods-use-this": "off",
+        "@typescript-eslint/no-underscore-dangle": "off",
+        "@typescript-eslint/no-plusplus": "off",
+        "@typescript-eslint/camelcase": "off",
+        "@typescript-eslint/eol-last": "off",
+        "@typescript-eslint/linebreak-style": "off",
+        "@typescript-eslint/comma-dangle": "off",
+        "@typescript-eslint/import/prefer-default-export": "off",
+        "@typescript-eslint/import/order": "off",
+        "@typescript-eslint/max-len": ["error", {
+                "comments": 150,
+                "code": 150
+            }
+        ],
+        "@typescript-eslint/arrow-parens": ["error", "as-needed"],
+        "@typescript-eslint/func-names": ["error", "never"],
+        "@typescript-eslint/no-param-reassign": ["error", { "props": false }],
+        "@typescript-eslint/indent": ["error", 4],
+        "@typescript-eslint/quotes": ["error", "single", {
+                "allowTemplateLiterals": true,
+                "avoidEscape": true
+            }
+        ]
+    }
+}
