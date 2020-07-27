@@ -8,9 +8,13 @@ const itemTemplate = new ItemTemplate();
 const getNewUserID = new GenerateNum();
 
 export default class TodoApp {
-    private todoListArray: enum;
+    todoListArray: Array<any>;
+    $todoList: any;
+    $todoCount: any;
+    $todoItemsLeft: any;
+    $clearCompletedButton: any;
 
-    constructor($elem: Element) {
+    constructor($elem: HTMLElement) {
         this.todoListArray = [];
         this.$todoList = $elem.querySelector('.todo-app__list');
         this.$todoCount = $elem.querySelector('.todo-app__todo-count');
@@ -57,7 +61,7 @@ export default class TodoApp {
         this.renderItems();
     }
 
-    updateTodoStatus($elem) {
+    updateTodoStatus($elem: any) {
         if ($elem === undefined) {
             return false
         } else {

@@ -20,7 +20,7 @@ document.addEventListener('keyup', function(e) {
         let todoText = document.querySelector('.todo-app__input') as HTMLInputElement;
 
         todoText.value.trim();
-        return !todoText.value.length ? false : todoApp.addToArray(todoText);
+        return !todoText.value.length ? false : todoApp.addToArray(todoText.toString());
     }
 });
 
