@@ -3,7 +3,7 @@ import '../components/TodoApp';
 
 import { TodoApp } from '../components/TodoApp';
 
-const $toggleAll = document.querySelector('.todo-app__input-checkbox-label') as HTMLElement;
+const $toggleAll = document.querySelector('#select-all') as HTMLElement;
 const $todoList = document.querySelector('.todo-app__list') as HTMLElement;
 const $filtersList = document.querySelector('.todo-app__filters-list') as HTMLElement;
 const filterItemSelected = 'todo-app__filters-item_selected';
@@ -24,12 +24,12 @@ document.addEventListener('keyup', function(e) {
     }
 });
 
-$toggleAll.addEventListener('click', () => {
-    todoApp.toggleAllItems();
+$toggleAll.addEventListener('click', e => {
+    todoApp.toggleAllItems((e.target as HTMLInputElement).checked);
 });
 
 $todoList.addEventListener('change', (e: Event) => {
-    const $listItem = (<HTMLElement>e.target).parentNode;
+    const $listItem = (<HTMLElement>e.target).parentNode as HTMLElement;
     if ((<HTMLElement>e.target).classList.contains('todo-app__list-checkbox')) {
         todoApp.updateTodoStatus($listItem);
     }

@@ -111,7 +111,7 @@ module.exports = {
             },
             {
                 test: /\.tsx?$/,
-                use: [ 'ts-loader', 'eslint-loader' ],
+                use: [ 'ts-loader'/*, 'eslint-loader'*/ ],
                 exclude: /node_modules/,
             }
         ]

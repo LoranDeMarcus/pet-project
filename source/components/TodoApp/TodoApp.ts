@@ -7,19 +7,26 @@ const footer_active = 'todo-app__footer_active';
 const itemTemplate = new ItemTemplate();
 const getNewUserID = new GenerateNum();
 
+type TodoType = {
+    id: number,
+    title: string,
+    completed: boolean
+}
+
 export default class TodoApp {
-    todoListArray: Array<any>;
-    $todoList: any;
-    $todoCount: any;
-    $todoItemsLeft: any;
-    $clearCompletedButton: any;
+    todoListArray: Array<TodoType>;
+    $todoList: HTMLElement;
+    $todoCount: HTMLElement;
+    $todoItemsLeft: HTMLElement;
+    $clearCompletedButton: HTMLElement;
 
     constructor($elem: HTMLElement) {
         this.todoListArray = [];
-        this.$todoList = $elem.querySelector('.todo-app__list');
-        this.$todoCount = $elem.querySelector('.todo-app__todo-count');
-        this.$todoItemsLeft = $elem.querySelector('.todo-app__todo-count');
-        this.$clearCompletedButton = $elem.querySelector('.todo-app__clear-completed');
+        this.$todoList = $elem.querySelector('.todo-app__list') as HTMLElement;
+        this.$todoCount = $elem.querySelector('.todo-app__todo-count') as HTMLElement;
+        this.$todoItemsLeft = $elem.querySelector('.todo-app__todo-count') as HTMLElement;
+        this.$clearCompletedButton = $elem.querySelector('.todo-app__clear-completed') as HTMLElement;
+
     }
 
     getNewId() {
@@ -35,7 +42,7 @@ export default class TodoApp {
         this.todoListArray.push({
             id: this.getNewId(),
             title: text,
-            completed: false
+            completed: false,
         });
 
         this.renderItems();
@@ -56,32 +63,28 @@ export default class TodoApp {
 
     deleteTodoItem($elem: any) {
         const elemId = +$elem.getAttribute('data-id');
-        const index = this.todoListArray.findIndex( (item: { id: number; }) => item.id === elemId );
-        this.todoListArray.splice(index, 1);
+        this.todoListArray = this.todoListArray.filter((item: TodoType) => item.id !== elemId);
         this.renderItems();
     }
 
-    updateTodoStatus($elem: any) {
-        if ($elem === undefined) {
-            return false
-        } else {
-            const elemId = +$elem.getAttribute('data-id');
-            const object = this.todoListArray.find((item: { id: number; }) => item.id === elemId);
-            object.completed === false ?
-                object.completed = true :
-                object.completed = false;
-        }
+    updateTodoStatus($todoItem: HTMLElement) {
+        const todoItemId = Number($todoItem.dataset.id);
+        this.todoListArray.some((item: TodoType) => {
+            const isCurrentItem = item.id === todoItemId;
+            if (isCurrentItem) item.completed = !item.completed;
+            return isCurrentItem;
+        });
         this.renderItems();
     }
 
     showFooter() {
-        this.todoListArray.length >= 1 ?
-            footer.classList.add(footer_active) :
-            footer.classList.remove(footer_active);
+        this.todoListArray.length >= 1
+            ? footer.classList.add(footer_active)
+            : footer.classList.remove(footer_active);
     }
 
-    toggleAllItems() {
-        this.todoListArray.map((item: { completed: boolean; }) => { return item.completed = true });
+    toggleAllItems(isChecked: boolean) {
+        this.todoListArray.map((item: { completed: boolean; }) => { return item.completed = isChecked });
         this.renderItems(); /* TODO: сделать чтобы при нажатии item.completed = false */
     }
 
@@ -117,6 +120,9 @@ export default class TodoApp {
     }
 
     itemCounter() {
-        this.$todoItemsLeft.innerText = this.todoListArray.filter((item: { completed: boolean; }) => !item.completed).length > 1 ? `${this.updateTodoCount()} items left` : `${this.updateTodoCount()} item left`;
+        this.$todoItemsLeft.innerText = this.todoListArray.filter((item: { completed: boolean; }) => 
+            !item.completed).length > 1
+                ? `${this.updateTodoCount()} items left of ${this.todoListArray.length}`
+                : `${this.updateTodoCount()} item left of ${this.todoListArray.length}`;
     }
 }
