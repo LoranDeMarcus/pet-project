@@ -85,7 +85,7 @@ export default class TodoApp {
 
     toggleAllItems(isChecked: boolean) {
         this.todoListArray.map((item: { completed: boolean; }) => { return item.completed = isChecked });
-        this.renderItems(); /* TODO: сделать чтобы при нажатии item.completed = false */
+        this.renderItems();
     }
 
     toggleClearCompletedButton() {
@@ -120,7 +120,7 @@ export default class TodoApp {
     }
 
     itemCounter() {
-        this.$todoItemsLeft.innerText = this.todoListArray.filter((item: { completed: boolean; }) => 
+        this.$todoItemsLeft.innerText = this.todoListArray.filter((item: { completed: boolean; }) =>
             !item.completed).length > 1
                 ? `${this.updateTodoCount()} items left of ${this.todoListArray.length}`
                 : `${this.updateTodoCount()} item left of ${this.todoListArray.length}`;

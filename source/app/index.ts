@@ -29,15 +29,15 @@ $toggleAll.addEventListener('click', e => {
 });
 
 $todoList.addEventListener('change', (e: Event) => {
-    const $listItem = (<HTMLElement>e.target).parentNode as HTMLElement;
-    if ((<HTMLElement>e.target).classList.contains('todo-app__list-checkbox')) {
+    const $listItem = (e.target as HTMLElement).parentNode as HTMLElement;
+    if ((e.target  as HTMLElement).classList.contains('todo-app__list-checkbox')) {
         todoApp.updateTodoStatus($listItem);
     }
 });
 
 $todoList.addEventListener('click', (e: MouseEvent) => {
-    const $listItem = (<HTMLElement>e.target).parentNode;
-    if ((<HTMLElement>e.target).classList.contains('todo-app__item-destroy')) {
+    const $listItem = (e.target as HTMLElement).parentNode;
+    if ((e.target as HTMLElement).classList.contains('todo-app__item-destroy')) {
         todoApp.deleteTodoItem($listItem);
     }
 });
@@ -48,8 +48,8 @@ $clearCompletedButton.addEventListener('click', () => {
 
 $filterAll.addEventListener('click', (e: MouseEvent) => {
     todoApp.showAllItems();
-    if (!(<HTMLElement>e.currentTarget).classList.contains(filterItemSelected)) {
-        (<HTMLElement>e.currentTarget).classList.add(filterItemSelected);
+    if (!(e.currentTarget as HTMLElement).classList.contains(filterItemSelected)) {
+        (e.currentTarget as HTMLElement).classList.add(filterItemSelected);
         $filterActive.classList.remove(filterItemSelected);
         $filterComplete.classList.remove(filterItemSelected);
     }
@@ -57,8 +57,8 @@ $filterAll.addEventListener('click', (e: MouseEvent) => {
 
 $filterActive.addEventListener('click', (e: MouseEvent) => {
     todoApp.showActiveItems();
-    if (!(<HTMLElement>e.currentTarget).classList.contains(filterItemSelected)) {
-        (<HTMLElement>e.currentTarget).classList.add(filterItemSelected);
+    if (!(e.currentTarget as HTMLElement).classList.contains(filterItemSelected)) {
+        (e.currentTarget as HTMLElement).classList.add(filterItemSelected);
         $filterAll.classList.remove(filterItemSelected);
         $filterComplete.classList.remove(filterItemSelected);
     }
@@ -66,8 +66,8 @@ $filterActive.addEventListener('click', (e: MouseEvent) => {
 
 $filterComplete.addEventListener('click', (e: MouseEvent) => {
     todoApp.showCompleteItems();
-    if (!(<HTMLElement>e.currentTarget).classList.contains(filterItemSelected)) {
-        (<HTMLElement>e.currentTarget).classList.add(filterItemSelected);
+    if (!(e.currentTarget as HTMLElement).classList.contains(filterItemSelected)) {
+        (e.currentTarget as HTMLElement).classList.add(filterItemSelected);
         $filterActive.classList.remove(filterItemSelected);
         $filterAll.classList.remove(filterItemSelected);
     }
