@@ -18,18 +18,15 @@
         "@typescript-eslint/comma-dangle": "off",
         "@typescript-eslint/import/prefer-default-export": "off",
         "@typescript-eslint/import/order": "off",
-        "@typescript-eslint/max-len": ["error", {
+        "max-len": ["error", {
                 "comments": 150,
                 "code": 150
             }
         ],
-        "@typescript-eslint/arrow-parens": ["error", "as-needed"],
-        "@typescript-eslint/func-names": ["error", "never"],
-        "@typescript-eslint/no-param-reassign": ["error", { "props": false }],
         "@typescript-eslint/indent": ["error", 4],
         "@typescript-eslint/quotes": ["error", "single", {
-                "allowTemplateLiterals": true,
-                "avoidEscape": true
+                "@typescript-eslint/allowTemplateLiterals": true,
+                "@typescript-eslint/avoidEscape": true
             }
         ]
     }

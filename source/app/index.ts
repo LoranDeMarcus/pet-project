@@ -17,10 +17,10 @@ const todoApp = new TodoApp($todoApp);
 
 document.addEventListener('keyup', function(e) {
     if (e.key === 'Enter') {
-        let todoText = document.querySelector('.todo-app__input') as HTMLInputElement;
+        let todoText = document.querySelector('.todo-app__input') as any;
 
-        todoText.value.trim();
-        return !todoText.value.length ? false : todoApp.addToArray(todoText.toString());
+        todoText = todoText.value.trim();
+        return !todoText.length ? false : todoApp.addToArray(todoText);
     }
 });
 

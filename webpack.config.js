@@ -37,10 +37,7 @@ const optimization = () => {
 const plugins = () => {
     const base = [
         new HTMLWebpackPlugin( {
-            template: './index.html',
-            minify: {
-                collapseWhitespace: isProd
-            }
+            template: './index.html'
         }),
         new CleanWebpackPlugin(),
         new MiniCssExtractPlugin({
@@ -64,7 +61,7 @@ module.exports = {
         path: path.resolve(__dirname, 'dist')
     },
     resolve: {
-        extensions: ['.js', '.json', 'css', '.png'],
+        extensions: ['.js', '.ts', '.json', 'css', '.png'],
         alias: {
             '@components': path.resolve(__dirname, 'source/components')
         }
