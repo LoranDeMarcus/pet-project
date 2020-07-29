@@ -1,5 +1,5 @@
 export default class ItemTemplate {
-    listItem(items: any[]) {
+    listItem(items: Array<any>) {
         let html: string[] = [];
         items.map((item) => {
             html.push(`<li data-id="${item.id}" class="todo-app__list-item">

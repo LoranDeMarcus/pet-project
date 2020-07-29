@@ -1,11 +1,13 @@
 import ItemTemplate from './item-template';
 import { GenerateNum } from '../GenerateNum';
+import { Storage } from '../Storage';
 
 const footer = document.querySelector('.todo-app__footer') as HTMLDivElement;
 const footer_active = 'todo-app__footer_active';
 
 const itemTemplate = new ItemTemplate();
-const getNewUserID = new GenerateNum();
+const getNewUserID = new GenerateNum(); // FIXME: перенести в конструктор
+const storage = new Storage();
 
 type TodoType = {
     id: number,
@@ -26,7 +28,6 @@ export default class TodoApp {
         this.$todoCount = $elem.querySelector('.todo-app__todo-count') as HTMLElement;
         this.$todoItemsLeft = $elem.querySelector('.todo-app__todo-count') as HTMLElement;
         this.$clearCompletedButton = $elem.querySelector('.todo-app__clear-completed') as HTMLElement;
-
     }
 
     getNewId() {
@@ -38,13 +39,12 @@ export default class TodoApp {
         inputValue.value = '';
     }
 
-    addToArray(text: string) {
+    addTodo(text: string) {
         this.todoListArray.push({
             id: this.getNewId(),
             title: text,
             completed: false,
         });
-
         this.renderItems();
     }
 
@@ -58,7 +58,6 @@ export default class TodoApp {
         this.clearInput();
         this.itemCounter();
         this.toggleClearCompletedButton();
-        console.log(this.todoListArray);
     }
 
     deleteTodoItem($elem: any) {
