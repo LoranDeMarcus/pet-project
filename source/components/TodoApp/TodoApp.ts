@@ -1,13 +1,10 @@
 import ItemTemplate from './item-template';
-import { GenerateNum } from '../GenerateNum';
 import { Storage } from '../Storage';
 
 const footer = document.querySelector('.todo-app__footer') as HTMLDivElement;
 const footer_active = 'todo-app__footer_active';
 
 const itemTemplate = new ItemTemplate();
-const getNewUserID = new GenerateNum(); // FIXME: перенести в конструктор
-const storage = new Storage();
 
 type TodoType = {
     id: number,
@@ -21,8 +18,10 @@ export default class TodoApp {
     $todoCount: HTMLElement;
     $todoItemsLeft: HTMLElement;
     $clearCompletedButton: HTMLElement;
+    store: any;
 
     constructor($elem: HTMLElement) {
+        this.store = Storage;
         this.todoListArray = [];
         this.$todoList = $elem.querySelector('.todo-app__list') as HTMLElement;
         this.$todoCount = $elem.querySelector('.todo-app__todo-count') as HTMLElement;
@@ -30,18 +29,19 @@ export default class TodoApp {
         this.$clearCompletedButton = $elem.querySelector('.todo-app__clear-completed') as HTMLElement;
     }
 
-    getNewId() {
-        return getNewUserID.generateNumByDate();
-    }
-
     clearInput() {
         const inputValue = document.querySelector('.todo-app__input') as HTMLInputElement;
         inputValue.value = '';
     }
 
-    addTodo(text: string) {
+    addItem(text: string) {
+        this.store.insert({
+            id: Date.now(),
+            title: text,
+            completed: false,
+        })
         this.todoListArray.push({
-            id: this.getNewId(),
+            id: Date.now(),
             title: text,
             completed: false,
         });
